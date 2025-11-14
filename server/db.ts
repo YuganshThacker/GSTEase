@@ -1,10 +1,8 @@
-// Referenced from javascript_database blueprint
-import { Pool, neonConfig } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/neon-serverless';
-import ws from "ws";
+// Database connection with support for both local PostgreSQL and Neon serverless
+import './env'; // Load environment variables
+import { Pool } from 'pg';
+import { drizzle } from 'drizzle-orm/node-postgres';
 import * as schema from "@shared/schema";
-
-neonConfig.webSocketConstructor = ws;
 
 if (!process.env.DATABASE_URL) {
   throw new Error(
@@ -12,5 +10,6 @@ if (!process.env.DATABASE_URL) {
   );
 }
 
+// Use standard PostgreSQL driver for local development
 export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-export const db = drizzle({ client: pool, schema });
+export const db = drizzle(pool, { schema });

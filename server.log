@@ -1,0 +1,237 @@
+
+> rest-express@1.0.0 dev
+> NODE_ENV=development tsx server/index.ts
+
+[dotenv@17.2.3] injecting env (28) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+✅ Email service configured and ready
+2:33:56 AM [express] serving on http://localhost:5000
+
+A PostCSS plugin did not pass the `from` option to `postcss.parse`. This may cause imported assets to be incorrectly transformed. If you've recently added a PostCSS plugin that raised this warning, please contact the package author to fix the issue.
+2:34:45 AM [express] GET /api/auth/user 304 in 8ms :: {"id":"0dc6ec20-0b0d-4581-a3b5-1f0ef1c3bdd5","…
+Login attempt for: yuganshvthacker@gmail.com
+Login successful for: yuganshvthacker@gmail.com
+2:34:53 AM [express] POST /api/auth/login 200 in 76ms :: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXV…
+2:34:53 AM [express] GET /api/auth/user 304 in 1ms :: {"id":"0dc6ec20-0b0d-4581-a3b5-1f0ef1c3bdd5","…
+2:34:53 AM [express] GET /api/dashboard/stats 304 in 9ms :: {"totalRevenue":288442.74,"totalInvoices…
+2:34:53 AM [express] GET /api/products/low-stock 304 in 8ms :: []
+2:34:53 AM [express] GET /api/invoices/recent 304 in 11ms :: [{"id":"9132b6d6-58e0-4493-94b6-d332a54…
+2:34:59 AM [express] GET /api/expenses 304 in 5ms :: []
+2:34:59 AM [express] GET /api/expenses/summary 404 in 3ms :: {"error":"Expense not found"}
+2:34:59 AM [express] GET /api/vendors 304 in 3ms :: [{"id":"a2e0168a-f696-46f2-ab48-577f70d2d519","n…
+Error creating expense: ZodError: [
+  {
+    "code": "invalid_type",
+    "expected": "date",
+    "received": "string",
+    "path": [
+      "expenseDate"
+    ],
+    "message": "Expected date, received string"
+  }
+]
+    at get error (file:///Users/yugansh/Downloads/GSTEaseSuite/node_modules/zod/lib/index.mjs:587:31)
+    at ZodObject.parse (file:///Users/yugansh/Downloads/GSTEaseSuite/node_modules/zod/lib/index.mjs:663:22)
+    at <anonymous> (/Users/yugansh/Downloads/GSTEaseSuite/server/routes/expenses.ts:69:47)
+    at Layer.handle [as handle_request] (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/layer.js:95:5)
+    at next (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/layer.js:95:5)
+    at /Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/index.js:284:15
+    at router.process_params (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/index.js:346:12)
+    at next (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/index.js:280:10)
+    at router.handle (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/index.js:175:3)
+    at router (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/index.js:47:12)
+    at Layer.handle [as handle_request] (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/index.js:328:13)
+    at /Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/index.js:286:9
+    at router.process_params (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/index.js:346:12)
+    at next (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/index.js:280:10)
+    at isAuthenticated (/Users/yugansh/Downloads/GSTEaseSuite/server/jwtAuth.ts:80:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  issues: [
+    {
+      code: 'invalid_type',
+      expected: 'date',
+      received: 'string',
+      path: [Array],
+      message: 'Expected date, received string'
+    }
+  ],
+  addIssue: [Function (anonymous)],
+  addIssues: [Function (anonymous)],
+  errors: [
+    {
+      code: 'invalid_type',
+      expected: 'date',
+      received: 'string',
+      path: [Array],
+      message: 'Expected date, received string'
+    }
+  ]
+}
+2:35:27 AM [express] POST /api/expenses 400 in 29ms :: {"error":"[\n  {\n    \"code\": \"invalid_typ…
+Error creating expense: ZodError: [
+  {
+    "code": "invalid_type",
+    "expected": "date",
+    "received": "string",
+    "path": [
+      "expenseDate"
+    ],
+    "message": "Expected date, received string"
+  }
+]
+    at get error (file:///Users/yugansh/Downloads/GSTEaseSuite/node_modules/zod/lib/index.mjs:587:31)
+    at ZodObject.parse (file:///Users/yugansh/Downloads/GSTEaseSuite/node_modules/zod/lib/index.mjs:663:22)
+    at <anonymous> (/Users/yugansh/Downloads/GSTEaseSuite/server/routes/expenses.ts:69:47)
+    at Layer.handle [as handle_request] (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/layer.js:95:5)
+    at next (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/layer.js:95:5)
+    at /Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/index.js:284:15
+    at router.process_params (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/index.js:346:12)
+    at next (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/index.js:280:10)
+    at router.handle (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/index.js:175:3)
+    at router (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/index.js:47:12)
+    at Layer.handle [as handle_request] (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/index.js:328:13)
+    at /Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/index.js:286:9
+    at router.process_params (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/index.js:346:12)
+    at next (/Users/yugansh/Downloads/GSTEaseSuite/node_modules/express/lib/router/index.js:280:10)
+    at isAuthenticated (/Users/yugansh/Downloads/GSTEaseSuite/server/jwtAuth.ts:80:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  issues: [
+    {
+      code: 'invalid_type',
+      expected: 'date',
+      received: 'string',
+      path: [Array],
+      message: 'Expected date, received string'
+    }
+  ],
+  addIssue: [Function (anonymous)],
+  addIssues: [Function (anonymous)],
+  errors: [
+    {
+      code: 'invalid_type',
+      expected: 'date',
+      received: 'string',
+      path: [Array],
+      message: 'Expected date, received string'
+    }
+  ]
+}
+2:35:30 AM [express] POST /api/expenses 400 in 5ms :: {"error":"[\n  {\n    \"code\": \"invalid_type…
+2:35:36 AM [express] GET /api/invoices 304 in 4ms :: [{"id":"9132b6d6-58e0-4493-94b6-d332a5401cf8","…
+2:35:40 AM [express] GET /api/expenses/summary 404 in 6ms :: {"error":"Expense not found"}
+2:35:43 AM [express] GET /api/customers 304 in 5ms :: [{"id":"4bf88391-ef4c-4c5e-bd0e-1b4153b09fa6",…
+2:35:44 AM [express] GET /api/products 304 in 4ms :: [{"id":"645989c7-c642-4403-b426-0c860d0f8823","…
+2:35:44 AM [express] GET /api/categories 304 in 8ms :: []
+2:36:19 AM [vite] hmr update /src/pages/invoice-detail.tsx, /src/index.css?v=v7o2WB5eq5114aIwf6uKq
+2:36:19 AM [vite] hmr update /src/App.tsx?v=v7o2WB5eq5114aIwf6uKq, /src/index.css?v=v7o2WB5eq5114aIwf6uKq
+2:36:19 AM [vite] hmr update /src/pages/demo-payment.tsx, /src/index.css?v=v7o2WB5eq5114aIwf6uKq
+2:36:19 AM [vite] hmr update /src/pages/expenses.tsx, /src/index.css?v=v7o2WB5eq5114aIwf6uKq
+2:36:19 AM [vite] hmr update /src/pages/customers.tsx, /src/index.css?v=v7o2WB5eq5114aIwf6uKq, /src/pages/products.tsx
+2:38:41 AM [vite] hmr update /src/pages/customers.tsx, /src/index.css?v=v7o2WB5eq5114aIwf6uKq, /src/pages/products.tsx
+2:40:40 AM [vite] page reload index.html
+2:40:41 AM [express] GET /api/auth/user 304 in 5ms :: {"id":"0dc6ec20-0b0d-4581-a3b5-1f0ef1c3bdd5","…
+2:40:41 AM [express] GET /api/invoices 304 in 4ms :: [{"id":"9132b6d6-58e0-4493-94b6-d332a5401cf8","…
+2:41:08 AM [express] GET /api/auth/user 304 in 7ms :: {"id":"0dc6ec20-0b0d-4581-a3b5-1f0ef1c3bdd5","…
+2:41:08 AM [express] GET /api/invoices 304 in 2ms :: [{"id":"9132b6d6-58e0-4493-94b6-d332a5401cf8","…
+2:42:14 AM [vite] page reload index.html
+2:42:14 AM [express] GET /api/auth/user 304 in 6ms :: {"id":"0dc6ec20-0b0d-4581-a3b5-1f0ef1c3bdd5","…
+2:42:15 AM [express] GET /api/invoices 304 in 2ms :: [{"id":"9132b6d6-58e0-4493-94b6-d332a5401cf8","…
+2:42:36 AM [vite] hmr update /src/components/app-sidebar.tsx, /src/index.css?v=v7o2WB5eq5114aIwf6uKq
+2:42:45 AM [vite] hmr update /src/pages/landing.tsx, /src/index.css?v=v7o2WB5eq5114aIwf6uKq
+2:42:57 AM [vite] hmr update /src/pages/landing.tsx, /src/index.css?v=v7o2WB5eq5114aIwf6uKq
+2:43:06 AM [vite] hmr update /src/pages/landing.tsx, /src/index.css?v=v7o2WB5eq5114aIwf6uKq
+2:43:14 AM [vite] hmr update /src/pages/login.tsx, /src/index.css?v=v7o2WB5eq5114aIwf6uKq
+2:43:46 AM [express] GET /api/products/low-stock 304 in 13ms :: []
+2:43:46 AM [express] GET /api/invoices/recent 304 in 12ms :: [{"id":"9132b6d6-58e0-4493-94b6-d332a54…
+2:43:46 AM [express] GET /api/dashboard/stats 304 in 14ms :: {"totalRevenue":288442.74,"totalInvoice…
+2:43:47 AM [express] GET /api/products 304 in 6ms :: [{"id":"645989c7-c642-4403-b426-0c860d0f8823","…
+2:43:47 AM [express] GET /api/categories 304 in 5ms :: []
+2:44:47 AM [express] GET /api/auth/user 401 in 0ms :: {"message":"Unauthorized"}
+2:46:58 AM [express] GET /api/customers 304 in 8ms :: [{"id":"4bf88391-ef4c-4c5e-bd0e-1b4153b09fa6",…
+2:46:58 AM [express] GET /api/vendors 304 in 5ms :: [{"id":"a2e0168a-f696-46f2-ab48-577f70d2d519","n…
+2:46:59 AM [express] GET /api/expenses/summary 404 in 6ms :: {"error":"Expense not found"}
+2:46:59 AM [express] GET /api/expenses 304 in 9ms :: []
+2:54:03 AM [vite] hmr update /src/pages/customers.tsx, /src/index.css?v=v7o2WB5eq5114aIwf6uKq, /src/pages/products.tsx
+2:54:33 AM [vite] hmr update /src/pages/customers.tsx, /src/index.css?v=v7o2WB5eq5114aIwf6uKq, /src/pages/products.tsx
+2:55:07 AM [vite] hmr update /src/pages/customers.tsx, /src/index.css?v=v7o2WB5eq5114aIwf6uKq, /src/pages/products.tsx
+3:02:07 AM [express] GET /api/invoices 304 in 15ms :: [{"id":"9132b6d6-58e0-4493-94b6-d332a5401cf8",…
+3:02:08 AM [express] GET /api/customers 304 in 5ms :: [{"id":"4bf88391-ef4c-4c5e-bd0e-1b4153b09fa6",…
+3:02:10 AM [express] GET /api/invoices/recent 304 in 10ms :: [{"id":"9132b6d6-58e0-4493-94b6-d332a54…
+3:02:10 AM [express] GET /api/dashboard/stats 304 in 12ms :: {"totalRevenue":288442.74,"totalInvoice…
+3:02:10 AM [express] GET /api/products/low-stock 304 in 10ms :: []
+3:02:18 AM [express] GET /api/vendors 304 in 4ms :: [{"id":"a2e0168a-f696-46f2-ab48-577f70d2d519","n…
+3:02:19 AM [express] GET /api/expenses/summary 404 in 4ms :: {"error":"Expense not found"}
+3:02:19 AM [express] GET /api/expenses 304 in 7ms :: []
+3:04:48 AM [vite] hmr update /src/App.tsx?v=v7o2WB5eq5114aIwf6uKq, /src/index.css?v=v7o2WB5eq5114aIwf6uKq
+3:04:49 AM [vite] ✨ new dependencies optimized: @radix-ui/react-alert-dialog, @radix-ui/react-switch
+3:04:49 AM [vite] ✨ optimized dependencies changed. reloading
+3:04:49 AM [express] GET /api/auth/user 401 in 1ms :: {"message":"Unauthorized"}
+3:04:50 AM [express] GET /api/auth/user 304 in 9ms :: {"id":"0dc6ec20-0b0d-4581-a3b5-1f0ef1c3bdd5","…
+3:04:50 AM [express] GET /api/dashboard/stats 304 in 4ms :: {"totalRevenue":288442.74,"totalInvoices…
+3:04:50 AM [express] GET /api/products/low-stock 304 in 7ms :: []
+3:04:50 AM [express] GET /api/invoices/recent 304 in 7ms :: [{"id":"9132b6d6-58e0-4493-94b6-d332a540…
+3:05:04 AM [vite] hmr update /src/App.tsx?v=v7o2WB5eq5114aIwf6uKq, /src/index.css?v=v7o2WB5eq5114aIwf6uKq
+3:05:04 AM [vite] ✨ new dependencies optimized: @radix-ui/react-scroll-area
+3:05:04 AM [vite] ✨ optimized dependencies changed. reloading
+3:05:04 AM [express] GET /api/auth/user 401 in 1ms :: {"message":"Unauthorized"}
+3:05:05 AM [express] GET /api/auth/user 401 in 1ms :: {"message":"Unauthorized"}
+3:05:06 AM [express] GET /api/auth/user 304 in 9ms :: {"id":"0dc6ec20-0b0d-4581-a3b5-1f0ef1c3bdd5","…
+3:05:06 AM [express] GET /api/notifications/unread-count 200 in 4ms
+3:05:06 AM [express] GET /api/notifications 200 in 4ms
+3:05:06 AM [express] GET /api/dashboard/stats 304 in 6ms :: {"totalRevenue":288442.74,"totalInvoices…
+3:05:06 AM [express] GET /api/products/low-stock 304 in 8ms :: []
+3:05:06 AM [express] GET /api/invoices/recent 304 in 9ms :: [{"id":"9132b6d6-58e0-4493-94b6-d332a540…
+3:05:30 AM [vite] hmr update /src/components/app-sidebar.tsx, /src/index.css?v=v7o2WB5eq5114aIwf6uKq
+3:05:56 AM [express] GET /api/categories 304 in 11ms :: []
+3:05:56 AM [express] GET /api/products 304 in 12ms :: [{"id":"645989c7-c642-4403-b426-0c860d0f8823",…
+3:05:56 AM [express] GET /api/invoices 304 in 6ms :: [{"id":"9132b6d6-58e0-4493-94b6-d332a5401cf8","…
+3:06:03 AM [express] GET /api/auth/user 304 in 1ms :: {"id":"0dc6ec20-0b0d-4581-a3b5-1f0ef1c3bdd5","…
+3:06:03 AM [express] GET /api/notifications 200 in 4ms
+3:06:03 AM [express] GET /api/notifications/unread-count 200 in 5ms
+3:06:07 AM [express] GET /api/invoice-templates 200 in 9ms
+3:06:23 AM [express] POST /api/invoice-templates 200 in 15ms
+3:06:24 AM [express] POST /api/invoice-templates 200 in 8ms
+3:06:31 AM [express] GET /api/notifications 200 in 6ms
+3:06:31 AM [express] GET /api/invoices 304 in 8ms :: [{"id":"9132b6d6-58e0-4493-94b6-d332a5401cf8","…
+3:06:32 AM [express] GET /api/expenses/summary 404 in 10ms :: {"error":"Expense not found"}
+3:06:32 AM [express] GET /api/expenses 304 in 17ms :: []
+3:06:32 AM [express] GET /api/vendors 304 in 17ms :: [{"id":"a2e0168a-f696-46f2-ab48-577f70d2d519","…
+3:06:33 AM [express] GET /api/notifications/unread-count 200 in 9ms
+3:06:33 AM [express] GET /api/customers 304 in 2ms :: [{"id":"4bf88391-ef4c-4c5e-bd0e-1b4153b09fa6",…
+3:06:34 AM [express] GET /api/products 304 in 4ms :: [{"id":"645989c7-c642-4403-b426-0c860d0f8823","…
+3:06:34 AM [express] GET /api/categories 304 in 5ms :: []
+3:06:35 AM [express] GET /api/products/low-stock 304 in 5ms :: []
+3:06:35 AM [express] GET /api/invoices/recent 304 in 5ms :: [{"id":"9132b6d6-58e0-4493-94b6-d332a540…
+3:06:35 AM [express] GET /api/dashboard/stats 304 in 6ms :: {"totalRevenue":288442.74,"totalInvoices…
+3:06:48 AM [express] GET /api/invoices/9132b6d6-58e0-4493-94b6-d332a5401cf8 304 in 20ms :: {"id":"91…
+3:06:53 AM [express] POST /api/invoices/send-email 200 in 4874ms :: {"success":true,"message":"Invoi…
+3:07:01 AM [express] GET /api/notifications 200 in 16ms
+3:07:03 AM [express] GET /api/notifications/unread-count 200 in 12ms
+3:07:12 AM [express] GET /api/invoices/9132b6d6-58e0-4493-94b6-d332a5401cf8/pdf 200 in 20ms
+🎭 Using DEMO payment service (no Razorpay keys configured)
+🎭 [DEMO MODE] Created mock payment link: http://localhost:5000/demo/pay/plink_2e3b8a6dc55c5ac2b25568f1
+   Amount: ₹144220.78, Invoice: INV-000004
+3:07:18 AM [express] POST /api/payments/create-link 201 in 5ms :: {"success":true,"payment":{"id":"6…
+🎭 Using DEMO payment service (no Razorpay keys configured)
+🎭 [DEMO MODE] Created mock payment link: http://localhost:5000/demo/pay/plink_32a50f51b7393e9ff17b9b48
+   Amount: ₹144220.78, Invoice: INV-000004
+3:07:21 AM [express] POST /api/payments/create-link 201 in 7ms :: {"success":true,"payment":{"id":"0…
+3:07:22 AM [express] GET /api/auth/user 304 in 1ms :: {"id":"0dc6ec20-0b0d-4581-a3b5-1f0ef1c3bdd5","…
+3:07:22 AM [express] GET /api/notifications 200 in 3ms
+3:07:22 AM [express] GET /api/notifications/unread-count 200 in 3ms
+3:07:26 AM [express] GET /api/invoices 304 in 4ms :: [{"id":"9132b6d6-58e0-4493-94b6-d332a5401cf8","…
+3:07:26 AM [express] GET /api/products 304 in 4ms :: [{"id":"645989c7-c642-4403-b426-0c860d0f8823","…
+3:07:26 AM [express] GET /api/categories 304 in 7ms :: []
+3:07:27 AM [express] GET /api/customers 304 in 5ms :: [{"id":"4bf88391-ef4c-4c5e-bd0e-1b4153b09fa6",…
+3:07:28 AM [express] GET /api/vendors 304 in 5ms :: [{"id":"a2e0168a-f696-46f2-ab48-577f70d2d519","n…
+3:07:28 AM [express] GET /api/expenses 304 in 6ms :: []
+3:07:28 AM [express] GET /api/expenses/summary 404 in 5ms :: {"error":"Expense not found"}
+3:07:42 AM [express] GET /api/notifications 200 in 11ms
+3:07:43 AM [express] GET /api/invoice-templates 200 in 8ms
+3:07:44 AM [express] GET /api/notifications 200 in 5ms
+3:07:44 AM [express] GET /api/invoice-templates 200 in 8ms

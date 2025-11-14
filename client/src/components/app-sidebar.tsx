@@ -6,6 +6,8 @@ import {
   BarChart3,
   Settings,
   LogOut,
+  Building2,
+  Receipt,
 } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import {
@@ -23,6 +25,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const menuItems = [
   {
@@ -44,6 +47,16 @@ const menuItems = [
     title: "Customers",
     url: "/customers",
     icon: Users,
+  },
+  {
+    title: "Vendors",
+    url: "/vendors",
+    icon: Building2,
+  },
+  {
+    title: "Expenses",
+    url: "/expenses",
+    icon: Receipt,
   },
   {
     title: "Reports",
@@ -69,7 +82,7 @@ export function AppSidebar() {
             <FileText className="h-5 w-5" />
           </div>
           <div className="flex flex-col">
-            <span className="text-lg font-semibold">GST Ease</span>
+            <span className="text-lg font-semibold">GST Ease Suite</span>
             <span className="text-xs text-muted-foreground">Billing & Inventory</span>
           </div>
         </div>
@@ -99,7 +112,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="p-4 border-t">
+      <SidebarFooter className="p-4 border-t space-y-2">
         <div className="flex items-center gap-3 p-2">
           <Avatar className="h-8 w-8">
             <AvatarImage src={user?.profileImageUrl || undefined} style={{ objectFit: 'cover' }} />
@@ -115,6 +128,7 @@ export function AppSidebar() {
               {user?.email}
             </span>
           </div>
+          <ThemeToggle />
           <Button
             variant="ghost"
             size="icon"

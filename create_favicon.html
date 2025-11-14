@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Favicon</title>
+</head>
+<body>
+    <canvas id="canvas" width="512" height="512"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Create gradient background
+        const gradient = ctx.createLinearGradient(0, 0, 512, 512);
+        gradient.addColorStop(0, '#4F46E5'); // Indigo
+        gradient.addColorStop(1, '#7C3AED'); // Purple
+        
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, 512, 512);
+        
+        // Draw "GE" text for GST Ease
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = 'bold 280px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('GE', 256, 256);
+        
+        // Add subtle border
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.lineWidth = 8;
+        ctx.strokeRect(20, 20, 472, 472);
+        
+        // Convert to data URL
+        const dataUrl = canvas.toDataURL('image/png');
+        console.log('Favicon generated');
+        
+        // Create download link
+        const link = document.createElement('a');
+        link.href = dataUrl;
+        link.download = 'favicon.png';
+        document.body.appendChild(link);
+    </script>
+</body>
+</html>

@@ -72,7 +72,7 @@ export default function InvoiceNew() {
         variant: "destructive",
       });
       setTimeout(() => {
-        window.location.href = "/api/login";
+        window.location.href = "/login";
       }, 500);
     }
   }, [isAuthenticated, authLoading, toast]);
@@ -107,7 +107,7 @@ export default function InvoiceNew() {
           description: "You are logged out. Logging in again...",
           variant: "destructive",
         });
-        setTimeout(() => window.location.href = "/api/login", 500);
+        setTimeout(() => window.location.href = "/login", 500);
         return;
       }
       toast({

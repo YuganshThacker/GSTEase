@@ -15,7 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Plus, Search, FileText, Eye } from "lucide-react";
+import { Plus, Search, FileText, Eye, FileSpreadsheet } from "lucide-react";
 import { Link } from "wouter";
 import type { Invoice } from "@shared/schema";
 
@@ -32,7 +32,7 @@ export default function Invoices() {
         variant: "destructive",
       });
       setTimeout(() => {
-        window.location.href = "/api/login";
+        window.location.href = "/login";
       }, 500);
     }
   }, [isAuthenticated, authLoading, toast]);
@@ -77,12 +77,22 @@ export default function Invoices() {
             Manage and track all your GST invoices
           </p>
         </div>
-        <Link href="/invoices/new">
-          <Button data-testid="button-create-invoice">
-            <Plus className="h-4 w-4 mr-2" />
-            Create Invoice
+        <div className="flex gap-2">
+          <Button 
+            variant="outline"
+            onClick={() => window.open('/api/exports/excel/invoices', '_blank')}
+            data-testid="button-export-excel"
+          >
+            <FileSpreadsheet className="h-4 w-4 mr-2" />
+            Export to Excel
           </Button>
-        </Link>
+          <Link href="/invoices/new">
+            <Button data-testid="button-create-invoice">
+              <Plus className="h-4 w-4 mr-2" />
+              Create Invoice
+            </Button>
+          </Link>
+        </div>
       </div>
 
       <Card>

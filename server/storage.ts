@@ -1,4 +1,4 @@
-// Referenced from javascript_database and javascript_log_in_with_replit blueprints
+// Database session storage implementation
 import {
   users,
   categories,
@@ -24,8 +24,9 @@ import { eq, desc, lte, sql } from "drizzle-orm";
 
 // Interface for storage operations
 export interface IStorage {
-  // User operations (IMPORTANT: mandatory for Replit Auth)
+  // User operations
   getUser(id: string): Promise<User | undefined>;
+  getUserByEmail(email: string): Promise<User | undefined>;
   upsertUser(user: UpsertUser): Promise<User>;
 
   // Category operations
@@ -69,9 +70,14 @@ export interface IStorage {
 }
 
 export class DatabaseStorage implements IStorage {
-  // User operations (IMPORTANT: mandatory for Replit Auth)
+  // User operations for authentication
   async getUser(id: string): Promise<User | undefined> {
     const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user;
+  }
+
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.email, email));
     return user;
   }
 

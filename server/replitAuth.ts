@@ -1,4 +1,4 @@
-// Referenced from javascript_log_in_with_replit blueprint
+// OpenID Connect authentication implementation
 import * as client from "openid-client";
 import { Strategy, type VerifyFunction } from "openid-client/passport";
 

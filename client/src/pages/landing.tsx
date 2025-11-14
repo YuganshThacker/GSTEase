@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { FileText, Package, Users, BarChart3, TrendingUp, Shield } from "lucide-react";
+import { Link } from "wouter";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Landing() {
   return (
@@ -11,16 +13,18 @@ export default function Landing() {
               <FileText className="h-5 w-5" />
             </div>
             <div className="flex flex-col">
-              <span className="text-lg font-semibold">GST Ease</span>
+              <span className="text-lg font-semibold">GST Ease Suite</span>
               <span className="text-xs text-muted-foreground">Billing & Inventory</span>
             </div>
           </div>
-          <Button
-            onClick={() => window.location.href = '/api/login'}
-            data-testid="button-login"
-          >
-            Sign In
-          </Button>
+          <div className="flex items-center gap-4">
+            <ThemeToggle />
+            <Link href="/login">
+              <Button data-testid="button-login">
+                Sign In
+              </Button>
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -34,13 +38,14 @@ export default function Landing() {
             and provide smart administrative control for businesses of all sizes.
           </p>
           <div className="mt-10 flex justify-center gap-4">
-            <Button
-              size="lg"
-              onClick={() => window.location.href = '/api/login'}
-              data-testid="button-get-started"
-            >
-              Get Started
-            </Button>
+            <Link href="/login">
+              <Button
+                size="lg"
+                data-testid="button-get-started"
+              >
+                Get Started
+              </Button>
+            </Link>
           </div>
         </section>
 
@@ -110,7 +115,7 @@ export default function Landing() {
         <section className="border-t py-20 text-center">
           <h2 className="text-3xl font-bold">Ready to streamline your business?</h2>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-            Join businesses that trust GST Ease for accurate billing, efficient inventory management,
+            Join businesses that trust GST Ease Suite for accurate billing, efficient inventory management,
             and GST compliance.
           </p>
           <Button
@@ -126,7 +131,7 @@ export default function Landing() {
 
       <footer className="border-t py-8">
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          © 2024 GST Ease. All rights reserved.
+          © 2024 GST Ease Suite. All rights reserved.
         </div>
       </footer>
     </div>

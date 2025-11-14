@@ -41,7 +41,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Plus, Search, Edit, Trash2, Package } from "lucide-react";
+import { Plus, Search, Edit, Trash2, Package, FileSpreadsheet } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { insertProductSchema, type Product, type Category, type InsertProduct } from "@shared/schema";
@@ -61,7 +61,7 @@ export default function Products() {
         variant: "destructive",
       });
       setTimeout(() => {
-        window.location.href = "/api/login";
+        window.location.href = "/login";
       }, 500);
     }
   }, [isAuthenticated, authLoading, toast]);
@@ -112,7 +112,7 @@ export default function Products() {
           description: "You are logged out. Logging in again...",
           variant: "destructive",
         });
-        setTimeout(() => window.location.href = "/api/login", 500);
+        setTimeout(() => window.location.href = "/login", 500);
         return;
       }
       toast({
@@ -143,7 +143,7 @@ export default function Products() {
           description: "You are logged out. Logging in again...",
           variant: "destructive",
         });
-        setTimeout(() => window.location.href = "/api/login", 500);
+        setTimeout(() => window.location.href = "/login", 500);
         return;
       }
       toast({
@@ -173,7 +173,7 @@ export default function Products() {
           description: "You are logged out. Logging in again...",
           variant: "destructive",
         });
-        setTimeout(() => window.location.href = "/api/login", 500);
+        setTimeout(() => window.location.href = "/login", 500);
         return;
       }
       toast({
@@ -238,17 +238,27 @@ export default function Products() {
             Manage your inventory and product catalog
           </p>
         </div>
-        <Button
-          onClick={() => {
-            setEditingProduct(null);
-            form.reset();
-            setIsAddDialogOpen(true);
-          }}
-          data-testid="button-add-product"
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          Add Product
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            onClick={() => window.open('/api/exports/excel/products', '_blank')}
+            data-testid="button-export-excel"
+          >
+            <FileSpreadsheet className="h-4 w-4 mr-2" />
+            Export to Excel
+          </Button>
+          <Button
+            onClick={() => {
+              setEditingProduct(null);
+              form.reset();
+              setIsAddDialogOpen(true);
+            }}
+            data-testid="button-add-product"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Add Product
+          </Button>
+        </div>
       </div>
 
       <Card>

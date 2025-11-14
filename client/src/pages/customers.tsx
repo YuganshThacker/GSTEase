@@ -41,7 +41,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Plus, Search, Edit, Trash2, Users as UsersIcon } from "lucide-react";
+import { Plus, Search, Edit, Trash2, Users as UsersIcon, FileSpreadsheet } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { insertCustomerSchema, type Customer, type InsertCustomer } from "@shared/schema";
@@ -61,7 +61,7 @@ export default function Customers() {
         variant: "destructive",
       });
       setTimeout(() => {
-        window.location.href = "/api/login";
+        window.location.href = "/login";
       }, 500);
     }
   }, [isAuthenticated, authLoading, toast]);
@@ -107,7 +107,7 @@ export default function Customers() {
           description: "You are logged out. Logging in again...",
           variant: "destructive",
         });
-        setTimeout(() => window.location.href = "/api/login", 500);
+        setTimeout(() => window.location.href = "/login", 500);
         return;
       }
       toast({
@@ -138,7 +138,7 @@ export default function Customers() {
           description: "You are logged out. Logging in again...",
           variant: "destructive",
         });
-        setTimeout(() => window.location.href = "/api/login", 500);
+        setTimeout(() => window.location.href = "/login", 500);
         return;
       }
       toast({
@@ -168,7 +168,7 @@ export default function Customers() {
           description: "You are logged out. Logging in again...",
           variant: "destructive",
         });
-        setTimeout(() => window.location.href = "/api/login", 500);
+        setTimeout(() => window.location.href = "/login", 500);
         return;
       }
       toast({
@@ -220,17 +220,27 @@ export default function Customers() {
             Manage your customer database
           </p>
         </div>
-        <Button
-          onClick={() => {
-            setEditingCustomer(null);
-            form.reset();
-            setIsAddDialogOpen(true);
-          }}
-          data-testid="button-add-customer"
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          Add Customer
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            onClick={() => window.open('/api/exports/excel/customers', '_blank')}
+            data-testid="button-export-excel"
+          >
+            <FileSpreadsheet className="h-4 w-4 mr-2" />
+            Export to Excel
+          </Button>
+          <Button
+            onClick={() => {
+              setEditingCustomer(null);
+              form.reset();
+              setIsAddDialogOpen(true);
+            }}
+            data-testid="button-add-customer"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Add Customer
+          </Button>
+        </div>
       </div>
 
       <Card>

@@ -1,8 +1,8 @@
-// Referenced from javascript_log_in_with_replit blueprint
+// JWT Authentication routes
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { setupAuth, isAuthenticated } from "./replitAuth";
+import { setupAuth, isAuthenticated } from "./jwtAuth";
 import {
   insertCategorySchema,
   insertProductSchema,
@@ -10,17 +10,33 @@ import {
   insertInvoiceSchema,
   insertInvoiceItemSchema,
 } from "@shared/schema";
+import { generateInvoicePDF, getInvoiceFilename } from './services/pdfService';
+import * as inventoryService from './services/inventoryService';
+import * as emailService from './services/emailService';
+
+// Import new route modules
+import paymentsRoutes from './routes/payments';
+import whatsappRoutes from './routes/whatsapp';
+import exportsRoutes from './routes/exports';
+import vendorsRoutes from './routes/vendors';
+import expensesRoutes from './routes/expenses';
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Auth middleware
   await setupAuth(app);
 
+  // Register new routes
+  app.use('/api/payments', isAuthenticated, paymentsRoutes);
+  app.use('/api/whatsapp', isAuthenticated, whatsappRoutes);
+  app.use('/api/export', isAuthenticated, exportsRoutes);
+  app.use('/api/vendors', isAuthenticated, vendorsRoutes);
+  app.use('/api/expenses', isAuthenticated, expensesRoutes);
+
   // Auth routes
   app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
-      const user = await storage.getUser(userId);
-      res.json(user);
+      // User is already attached to req by isAuthenticated middleware
+      res.json(req.user);
     } catch (error) {
       console.error("Error fetching user:", error);
       res.status(500).json({ message: "Failed to fetch user" });
@@ -203,6 +219,83 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // PDF Invoice Download
+  app.get('/api/invoices/:id/pdf', isAuthenticated, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const invoice = await storage.getInvoice(id);
+      
+      if (!invoice) {
+        return res.status(404).json({ message: "Invoice not found" });
+      }
+
+      // Generate PDF
+      const pdfBuffer = await generateInvoicePDF(invoice as any);
+      const filename = getInvoiceFilename(invoice.invoiceNumber);
+
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+      res.send(pdfBuffer);
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+      res.status(500).json({ message: "Failed to generate PDF" });
+    }
+  });
+
+  // Email Invoice
+  app.post('/api/invoices/send-email', isAuthenticated, async (req, res) => {
+    try {
+      // Check if email is configured
+      if (!emailService.isEmailConfigured()) {
+        return res.status(400).json({ 
+          message: "Email service is not configured. Please set EMAIL_USER and EMAIL_PASSWORD in your environment variables." 
+        });
+      }
+
+      const { invoiceId, customerId } = req.body;
+      
+      if (!invoiceId || !customerId) {
+        return res.status(400).json({ message: "Invoice ID and Customer ID are required" });
+      }
+
+      // Get invoice with all details
+      const invoice = await storage.getInvoice(invoiceId);
+      if (!invoice) {
+        return res.status(404).json({ message: "Invoice not found" });
+      }
+
+      // Get customer details
+      const customer = await storage.getCustomer(customerId);
+      if (!customer || !customer.email) {
+        return res.status(400).json({ message: "Customer email not found" });
+      }
+
+      // Generate PDF
+      const pdfBuffer = await generateInvoicePDF(invoice as any);
+
+      // Send email using emailService
+      await emailService.sendInvoiceEmail(
+        customer.email,
+        customer.name,
+        invoice.invoiceNumber,
+        parseFloat(invoice.totalAmount.toString()),
+        pdfBuffer
+      );
+
+      res.json({ 
+        success: true, 
+        message: "Invoice sent successfully",
+        email: customer.email 
+      });
+    } catch (error) {
+      console.error("Error sending invoice email:", error);
+      res.status(500).json({ 
+        message: "Failed to send invoice email", 
+        error: error instanceof Error ? error.message : 'Unknown error' 
+      });
+    }
+  });
+
   app.post('/api/invoices', isAuthenticated, async (req: any, res) => {
     try {
       const { items, ...invoiceData } = req.body;
@@ -241,10 +334,53 @@ export async function registerRoutes(app: Express): Promise<Server> {
         sgstAmount: sgstAmount.toString(),
         igstAmount: igstAmount.toString(),
         totalAmount: totalAmount.toString(),
-        createdBy: req.user.claims.sub,
+        createdBy: req.user.id,
       };
 
       const invoice = await storage.createInvoice(invoiceToCreate, items);
+
+      // Automatically deduct stock for each item
+      try {
+        for (const item of items) {
+          if (item.productId) {
+            await inventoryService.deductStock(
+              item.productId,
+              parseFloat(item.quantity),
+              'invoice',
+              invoice.id,
+              req.user.id
+            );
+          }
+        }
+      } catch (stockError: any) {
+        console.error("Stock deduction warning:", stockError.message);
+        // Continue even if stock deduction fails (for low stock scenarios)
+      }
+
+      // Automatically send invoice email if customer email is available
+      try {
+        const customer = await storage.getCustomer(invoiceData.customerId);
+        if (customer && customer.email && process.env.EMAIL_USER) {
+          // Generate PDF
+          const invoiceWithDetails = await storage.getInvoice(invoice.id);
+          const pdfBuffer = await generateInvoicePDF(invoiceWithDetails as any);
+          
+          // Send email with PDF attachment
+          await emailService.sendInvoiceEmail(
+            customer.email,
+            customer.name,
+            invoiceNumber,
+            totalAmount,
+            pdfBuffer
+          );
+          
+          console.log(`Invoice ${invoiceNumber} sent to ${customer.email}`);
+        }
+      } catch (emailError: any) {
+        console.error("Failed to send invoice email:", emailError.message);
+        // Don't fail the invoice creation if email fails
+      }
+
       res.status(201).json(invoice);
     } catch (error: any) {
       console.error("Error creating invoice:", error);
