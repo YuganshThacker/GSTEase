@@ -18,30 +18,23 @@ import Reports from "@/pages/reports";
 import Settings from "@/pages/settings";
 
 function Router() {
-  const { isAuthenticated, isLoading } = useAuth();
-
   return (
     <Switch>
-      {isLoading || !isAuthenticated ? (
-        <Route path="/" component={Landing} />
-      ) : (
-        <>
-          <Route path="/" component={Dashboard} />
-          <Route path="/products" component={Products} />
-          <Route path="/customers" component={Customers} />
-          <Route path="/invoices" component={Invoices} />
-          <Route path="/invoices/new" component={InvoiceNew} />
-          <Route path="/invoices/:id" component={InvoiceDetail} />
-          <Route path="/reports" component={Reports} />
-          <Route path="/settings" component={Settings} />
-        </>
-      )}
+      <Route path="/" component={Landing} />
+      <Route path="/dashboard" component={Dashboard} />
+      <Route path="/products" component={Products} />
+      <Route path="/customers" component={Customers} />
+      <Route path="/invoices" component={Invoices} />
+      <Route path="/invoices/new" component={InvoiceNew} />
+      <Route path="/invoices/:id" component={InvoiceDetail} />
+      <Route path="/reports" component={Reports} />
+      <Route path="/settings" component={Settings} />
       <Route component={NotFound} />
     </Switch>
   );
 }
 
-export default function App() {
+function AppContent() {
   const { isAuthenticated, isLoading } = useAuth();
 
   const style = {
@@ -49,30 +42,46 @@ export default function App() {
     "--sidebar-width-icon": "3rem",
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <>
+        <Router />
+        <Toaster />
+      </>
+    );
+  }
+
+  return (
+    <SidebarProvider style={style as React.CSSProperties}>
+      <div className="flex h-screen w-full">
+        <AppSidebar />
+        <div className="flex flex-1 flex-col overflow-hidden">
+          <header className="flex items-center gap-2 border-b px-6 py-3">
+            <SidebarTrigger data-testid="button-sidebar-toggle" />
+          </header>
+          <main className="flex-1 overflow-auto p-6">
+            <Router />
+          </main>
+        </div>
+      </div>
+      <Toaster />
+    </SidebarProvider>
+  );
+}
+
+export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        {isLoading || !isAuthenticated ? (
-          <>
-            <Router />
-            <Toaster />
-          </>
-        ) : (
-          <SidebarProvider style={style as React.CSSProperties}>
-            <div className="flex h-screen w-full">
-              <AppSidebar />
-              <div className="flex flex-1 flex-col overflow-hidden">
-                <header className="flex items-center gap-2 border-b px-6 py-3">
-                  <SidebarTrigger data-testid="button-sidebar-toggle" />
-                </header>
-                <main className="flex-1 overflow-auto p-6">
-                  <Router />
-                </main>
-              </div>
-            </div>
-            <Toaster />
-          </SidebarProvider>
-        )}
+        <AppContent />
       </TooltipProvider>
     </QueryClientProvider>
   );
